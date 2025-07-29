@@ -1,0 +1,6 @@
+# Node / IDE
+node_modules/
+.DS_Store
+
+# LocalStorage backups or temp files (if any)
+*.localstorage
