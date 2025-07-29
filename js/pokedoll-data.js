@@ -2,7 +2,7 @@ const waveData = {
   "wave-1": {
     main: ["Jigglypuff", "Magnemite", "Poliwhirl", "Rapidash", "Psyduck", "Pikachu", "Eevee", "Diglett", "Oddish", "Charmander", "Celebi", "Jirachi", "Suicune", "Kyogre", "Groudon", "Zeraora", "Mewtwo", "Rayquaza"],
     extras: {
-      "wave-1-gilded-checklist": ["Kyogre", "Groudon", "Zeraora", "Mewtwo", "Rayquaza"]
+      "wave-1-gilded": ["Kyogre", "Groudon", "Zeraora", "Mewtwo", "Rayquaza"]
     }
   },
   "wave-2": {
@@ -11,7 +11,7 @@ const waveData = {
   "wave-3": {
     main: ["Blastoise", "Bulbasaur", "Charizard", "Charmeleon", "Dugtrio", "Gloom", "Golduck", "Golem", "Graveler", "Ivysaur", "Mew", "Poliwag", "Poliwrath", "Ponyta", "Raichu", "Venusaur", "Vileplume", "Wartortle", "Weedle", "Wigglytuff", "Butterfree", "Caterpie", "Dewott", "Garbodor", "Lucario", "Manaphy", "Marshtomp", "Metapod", "Oshawott", "Parasect", "Phione", "Pikipek", "Prinplup", "Quilava", "Slowpoke", "Toucannon", "Trumbeak", "Typhlosion", "Voltorb", "Watchog"],
     extras: {
-      "wave-3-halloween-checklist": ["Bulbasaur", "Ivysaur", "Venusaur"]
+      "wave-3-halloween": ["Bulbasaur", "Ivysaur", "Venusaur"]
     }
   },
   "wave-4": {

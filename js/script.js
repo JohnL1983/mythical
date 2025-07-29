@@ -32,6 +32,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (data.extras) {
         Object.entries(data.extras).forEach(([extraId, items]) => {
+          const heading = document.createElement("h2");
+          heading.textContent = extraId.replace(`${waveId}-`, '').replace(/[-_]/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+          section.appendChild(heading);
+
           const extraList = document.createElement("ul");
           extraList.className = "wave-checklist";
           items.forEach((name, index) => {
