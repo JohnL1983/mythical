@@ -172,7 +172,7 @@
 
       for (let i = 0; i < localStorage.length; i++) {
         const key = localStorage.key(i);
-        if (prefixes.some(prefix => key.startsWith(prefix))) {
+        if (prefixes.some(prefix => key.startsWith(prefix)) && !key.endsWith("-toggle")) {
           total++;
           if (localStorage.getItem(key) === "true") {
             checked++;
