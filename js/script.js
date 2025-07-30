@@ -105,9 +105,13 @@ document.addEventListener("DOMContentLoaded", () => {
     renderSection(wrapsData, "wraps");
   }
 
-  if (typeof creatorData !== 'undefined') {
-    renderSection(creatorData, "creators");
+  if (typeof s1StreamerData !== 'undefined') {
+    renderSection(s1StreamerData, "s1streamers");
   }
+
+  if (typeof s2StreamerData !== 'undefined') {
+    renderSection(s2StreamerData, "s2streamers");
+  }  
 
   if (typeof vanillaPlushieData !== 'undefined') {
     renderSection(vanillaPlushieData, "vanilla-plushies");

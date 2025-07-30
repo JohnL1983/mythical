@@ -1,4 +1,4 @@
-const creatorData = {
+const s1StreamerData = {
   main: [
     "ArsisPlays",
     "AtillaTheHun",

@@ -1,4 +1,4 @@
-const ollData = {
+const pokepalDollData = {
   main: [
     "Bulbasaur",
     "Charizard",
