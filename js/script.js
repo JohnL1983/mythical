@@ -167,6 +167,30 @@ document.addEventListener("DOMContentLoaded", () => {
     renderSection(survivalPlushies, "survival-plushies");
   }
 
+  if (typeof alienPlushieData !== 'undefined') {
+    renderSection(alienPlushieData, "alien-plushies");
+  }
+
+  if (typeof adorablePlushies !== 'undefined') {
+    renderSection(adorablePlushies, "adorable-summer");
+  }
+
+  if (typeof catHeadPlushies !== 'undefined') {
+    renderSection(catHeadPlushies, "cat-heads");
+  }
+
+  if (typeof christmasPlushies !== 'undefined') {
+    renderSection(christmasPlushies, "xmas-plushies");
+  }
+
+  if (typeof dinoPlushies !== 'undefined') {
+    renderSection(dinoPlushies, "dino-plushies");
+  }
+
+  if (typeof dbzPlushies !== 'undefined') {
+    renderSection(dbzPlushies, "dbz-plushies");
+  }
+
   // ✅ Global reusable clear modal logic
   const clearButton = document.getElementById("clear-checklist");
   const overlay = document.getElementById("clear-confirm-overlay");

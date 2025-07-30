@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mythical Collection Tracker</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="js/dbz-plushie-data.js"></script>
+  <script src="js/script.js"></script>
+</head>
+
+<body>
+  <header>
+    <h1>Dragon Ball Z Plushie Checklist</h1>
+    <nav>
+      <a href="index.html" style="text-decoration: none;color: #fff;">&larr; Back to Home</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="dbz-plushies" class="wave-container">
+      <div class="wave-header">
+        <h2>DBZ Plushies</h2>
+        <button id="dbz-plushies-toggle-all">Select All</button>
+      </div>
+    </section>
+    <button id="clear-checklist" style="margin-top: 2em;">Clear Entire Checklist</button>
+  </main>
+
+  <footer>
+    <p>Built with ❤️ for Mythical Cobblemon</p>
+  </footer>
+  <div id="clear-confirm-overlay" style="display: none;">
+    <div class="clear-confirm-box">
+      <h3>Attention!</h3>
+      <p>Are you sure you want to clear all items in this checklist?</p>
+      <div class="clear-buttons">
+        <button id="cancel-clear">Cancel</button>
+        <button id="confirm-clear">Clear All</button>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>

@@ -85,6 +85,48 @@
           <p>Click to view</p>
         </a>
       </section>
+
+      <section id="tracker" class="collection-box">
+        <h2>Alien Plushies</h2>
+        <a href="alien-plushies.html" class="collection-button">
+          <p>Click to view</p>
+        </a>
+      </section>
+
+      <section id="tracker" class="collection-box">
+        <h2>Adorable Summer Plushies</h2>
+        <a href="adorable-summer-plushies.html" class="collection-button">
+          <p>Click to view</p>
+        </a>
+      </section>
+
+      <section id="tracker" class="collection-box">
+        <h2>Cat Head Plushies</h2>
+        <a href="cat-head-plushies.html" class="collection-button">
+          <p>Click to view</p>
+        </a>
+      </section>
+
+      <section id="tracker" class="collection-box">
+        <h2>Christmas Plushies</h2>
+        <a href="christmas-plushies.html" class="collection-button">
+          <p>Click to view</p>
+        </a>
+      </section>
+
+      <section id="tracker" class="collection-box">
+        <h2>Dino Plushies</h2>
+        <a href="dino-plushies.html" class="collection-button">
+          <p>Click to view</p>
+        </a>
+      </section>
+
+      <section id="tracker" class="collection-box">
+        <h2>DBZ Plushies</h2>
+        <a href="dbz-plushies.html" class="collection-button">
+          <p>Click to view</p>
+        </a>
+      </section>
     </div>
   </main>
 
@@ -100,116 +142,122 @@
 
   <script src="js/script.js"></script>
   <script>
-  // ✅ Export function must be in global scope
-  function exportChecklistData() {
-    const data = {};
-
-    for (let i = 0; i < localStorage.length; i++) {
-      const key = localStorage.key(i);
-      const value = localStorage.getItem(key);
-      data[key] = value;
-    }
-
-    const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
-
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "mythical-checklist.json";
-    a.click();
-
-    URL.revokeObjectURL(url);
-  }
-
-  // ✅ Import function must also be global
-  function importChecklistData() {
-    const input = document.getElementById("importFileInput");
-    const file = input.files[0];
-
-    if (!file) {
-      alert("Please select a JSON file first.");
-      return;
-    }
-
-    const reader = new FileReader();
-    reader.onload = function (event) {
-      try {
-        const data = JSON.parse(event.target.result);
-        for (const [key, value] of Object.entries(data)) {
-          localStorage.setItem(key, value);
-        }
-        alert("Checklist imported successfully! The page will now refresh.");
-        location.reload();
-      } catch (e) {
-        alert("Failed to import checklist. Make sure you're using a valid JSON file.");
-      }
-    };
-    reader.readAsText(file);
-  }
-
-  // ✅ Leave this inside DOMContentLoaded for safe DOM access
-  document.addEventListener("DOMContentLoaded", () => {
-    const sectionConfigs = {
-      "Pokédolls": [
-        "wave-1-", "wave-2-", "wave-3-", "wave-4-", "wave-5-",
-        "wave-6-", "wave-7-", "wave-8-", "wave-9-", "wave-10-",
-        "wave-11-", "wave-12-", "wave-13-", "wave-14-", "wave-15-",
-        "wave-16-", "wave-17-", "wave-1-W1-gilded-", "wave-3-W3-halloween-"
-      ],
-      "Big Pokédolls": ["big-pokedolls-"],
-      "Vanilla Mob Plushies": ["vanilla-plushies-"],
-      "Poképal Dolls": ["pokepal-dolls-"],
-      "Wraps": ["wraps-"],
-      "S1 Streamer Figures": ["s1streamers-"],
-      "S2 Streamer Figures": ["s2streamers-"],
-      "Vanilla Mob Figures": ["vanilla-figures-"],
-      "Custom Survival Plushies": ["survival-plushies-"]
-    };
-
-    function countLocalStorageMatches(prefixes) {
-      let total = 0;
-      let checked = 0;
+    // ✅ Export function must be in global scope
+    function exportChecklistData() {
+      const data = {};
 
       for (let i = 0; i < localStorage.length; i++) {
         const key = localStorage.key(i);
-        if (prefixes.some(prefix => key.startsWith(prefix)) && !key.endsWith("-toggle")) {
-          total++;
-          if (localStorage.getItem(key) === "true") {
-            checked++;
-          }
-        }
+        const value = localStorage.getItem(key);
+        data[key] = value;
       }
 
-      const percent = total > 0 ? (checked / total) * 100 : 0;
-      return { total, checked, percent };
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "mythical-checklist.json";
+      a.click();
+
+      URL.revokeObjectURL(url);
     }
 
-    document.querySelectorAll("section.collection-box").forEach(section => {
-      const title = section.querySelector("h2")?.textContent;
-      const prefixes = sectionConfigs[title];
-      if (!prefixes) return;
+    // ✅ Import function must also be global
+    function importChecklistData() {
+      const input = document.getElementById("importFileInput");
+      const file = input.files[0];
 
-      const { total, checked, percent } = countLocalStorageMatches(prefixes);
+      if (!file) {
+        alert("Please select a JSON file first.");
+        return;
+      }
 
-      const summary = document.createElement("p");
-      summary.className = "section-summary";
-      summary.textContent = `${checked}/${total}`;
+      const reader = new FileReader();
+      reader.onload = function (event) {
+        try {
+          const data = JSON.parse(event.target.result);
+          for (const [key, value] of Object.entries(data)) {
+            localStorage.setItem(key, value);
+          }
+          alert("Checklist imported successfully! The page will now refresh.");
+          location.reload();
+        } catch (e) {
+          alert("Failed to import checklist. Make sure you're using a valid JSON file.");
+        }
+      };
+      reader.readAsText(file);
+    }
 
-      const barContainer = document.createElement("div");
-      barContainer.className = "progress-container";
+    // ✅ Leave this inside DOMContentLoaded for safe DOM access
+    document.addEventListener("DOMContentLoaded", () => {
+      const sectionConfigs = {
+        "Pokédolls": [
+          "wave-1-", "wave-2-", "wave-3-", "wave-4-", "wave-5-",
+          "wave-6-", "wave-7-", "wave-8-", "wave-9-", "wave-10-",
+          "wave-11-", "wave-12-", "wave-13-", "wave-14-", "wave-15-",
+          "wave-16-", "wave-17-", "wave-1-W1-gilded-", "wave-3-W3-halloween-"
+        ],
+        "Big Pokédolls": ["big-pokedolls-"],
+        "Vanilla Mob Plushies": ["vanilla-plushies-"],
+        "Poképal Dolls": ["pokepal-dolls-"],
+        "Wraps": ["wraps-"],
+        "S1 Streamer Figures": ["s1streamers-"],
+        "S2 Streamer Figures": ["s2streamers-"],
+        "Vanilla Mob Figures": ["vanilla-figures-"],
+        "Custom Survival Plushies": ["survival-plushies-"],
+        "Alien Plushies": ["alien-plushies-"],
+        "Adorable Summer Plushies": ["adorable-summer-"],
+        "Cat Head Plushies": ["cat-heads-"],
+        "Christmas Plushies": ["xmas-plushies-"],
+        "Dino Plushies": ["dino-plushies-"],
+        "DBZ Plushies": ["dbz-plushies-"]
+      };
 
-      const barFill = document.createElement("div");
-      barFill.className = "progress-fill";
-      barFill.style.width = `${percent}%`;
+      function countLocalStorageMatches(prefixes) {
+        let total = 0;
+        let checked = 0;
 
-      barContainer.appendChild(barFill);
+        for (let i = 0; i < localStorage.length; i++) {
+          const key = localStorage.key(i);
+          if (prefixes.some(prefix => key.startsWith(prefix)) && !key.endsWith("-toggle")) {
+            total++;
+            if (localStorage.getItem(key) === "true") {
+              checked++;
+            }
+          }
+        }
 
-      const button = section.querySelector(".collection-button");
-      section.insertBefore(summary, button);
-      section.insertBefore(barContainer, button);
+        const percent = total > 0 ? (checked / total) * 100 : 0;
+        return { total, checked, percent };
+      }
+
+      document.querySelectorAll("section.collection-box").forEach(section => {
+        const title = section.querySelector("h2")?.textContent;
+        const prefixes = sectionConfigs[title];
+        if (!prefixes) return;
+
+        const { total, checked, percent } = countLocalStorageMatches(prefixes);
+
+        const summary = document.createElement("p");
+        summary.className = "section-summary";
+        summary.textContent = `${checked}/${total}`;
+
+        const barContainer = document.createElement("div");
+        barContainer.className = "progress-container";
+
+        const barFill = document.createElement("div");
+        barFill.className = "progress-fill";
+        barFill.style.width = `${percent}%`;
+
+        barContainer.appendChild(barFill);
+
+        const button = section.querySelector(".collection-button");
+        section.insertBefore(summary, button);
+        section.insertBefore(barContainer, button);
+      });
     });
-  });
-</script>
+  </script>
 
 </body>
 
