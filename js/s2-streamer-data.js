@@ -27,7 +27,6 @@ const s2StreamerData = {
     "Koziichu",
     "Kruzadar",
     "Kyrxspeedy",
-    "KYRxSpeedy BFC",
     "Moxiemils",
     "Mstoxicbanana",
     "Nerdcomedygaming",
