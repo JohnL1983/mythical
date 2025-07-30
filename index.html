@@ -163,7 +163,6 @@
 
   <script src="js/script.js"></script>
   <script>
-    // ✅ Export function must be in global scope
     function exportChecklistData() {
       const data = {};
 
@@ -184,7 +183,6 @@
       URL.revokeObjectURL(url);
     }
 
-    // ✅ Import function must also be global
     function importChecklistData() {
       const input = document.getElementById("importFileInput");
       const file = input.files[0];
@@ -210,7 +208,6 @@
       reader.readAsText(file);
     }
 
-    // ✅ Leave this inside DOMContentLoaded for safe DOM access
     document.addEventListener("DOMContentLoaded", () => {
       const sectionConfigs = {
         "Pokédolls": [
@@ -238,30 +235,48 @@
         "Independence Day Plushies": ["indy-plushies-"]
       };
 
-      function countLocalStorageMatches(prefixes) {
-        let total = 0;
-        let checked = 0;
+      const sectionTotals = {
+        "Pokédolls": 576,
+        "Big Pokédolls": 14,
+        "Poképal Dolls": 33,
+        "Wraps": 63,
+        "S1 Streamer Figures": 68,
+        "S2 Streamer Figures": 50,
+        "Vanilla Mob Plushies": 114,
+        "Vanilla Mob Figures": 79,
+        "Custom Survival Plushies": 54,
+        "Alien Plushies": 10,
+        "Adorable Summer Plushies": 8,
+        "Cat Head Plushies": 13,
+        "Christmas Plushies": 44,
+        "Dino Plushies": 12,
+        "DBZ Plushies": 20,
+        "Halloween Plushies": 20,
+        "Hello Kitty Plushies": 10,
+        "Independence Day Plushies": 10
+      };
 
+
+
+      function countCheckedItems(prefixes) {
+        let checked = 0;
         for (let i = 0; i < localStorage.length; i++) {
           const key = localStorage.key(i);
           if (prefixes.some(prefix => key.startsWith(prefix)) && !key.endsWith("-toggle")) {
-            total++;
             if (localStorage.getItem(key) === "true") {
               checked++;
             }
           }
         }
-
-        const percent = total > 0 ? (checked / total) * 100 : 0;
-        return { total, checked, percent };
+        return checked;
       }
 
       document.querySelectorAll("section.collection-box").forEach(section => {
         const title = section.querySelector("h2")?.textContent;
         const prefixes = sectionConfigs[title];
-        if (!prefixes) return;
-
-        const { total, checked, percent } = countLocalStorageMatches(prefixes);
+        const total = sectionTotals[title] || 0;
+        const checked = prefixes ? countCheckedItems(prefixes) : 0;
+        const percent = total > 0 ? (checked / total) * 100 : 0;
 
         const summary = document.createElement("p");
         summary.className = "section-summary";
@@ -282,6 +297,7 @@
       });
     });
   </script>
+
 
 </body>
 
