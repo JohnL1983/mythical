@@ -191,6 +191,18 @@ document.addEventListener("DOMContentLoaded", () => {
     renderSection(dbzPlushies, "dbz-plushies");
   }
 
+  if (typeof halloweenPlushies !== 'undefined') {
+    renderSection(halloweenPlushies, "hallow-plushies");
+  }
+
+  if (typeof sanrioPlushies !== 'undefined') {
+    renderSection(sanrioPlushies, "sanrio-plushies");
+  }
+
+  if (typeof indyPlushies !== 'undefined') {
+    renderSection(indyPlushies, "indy-plushies");
+  }
+
   // ✅ Global reusable clear modal logic
   const clearButton = document.getElementById("clear-checklist");
   const overlay = document.getElementById("clear-confirm-overlay");
