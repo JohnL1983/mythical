@@ -1,141 +1,123 @@
 document.addEventListener("DOMContentLoaded", () => {
-  function createChecklist(containerId, dolls, prefix) {
+  function createChecklist(containerId, items, prefix) {
     const section = document.getElementById(containerId);
     const list = document.createElement("ul");
     list.className = "wave-checklist";
-    dolls.forEach((name, index) => {
+
+    items.forEach((name, index) => {
       const id = `${prefix}-${index}`;
       const li = document.createElement("li");
       const input = document.createElement("input");
       input.type = "checkbox";
       input.id = id;
       input.checked = localStorage.getItem(id) === "true";
-      input.addEventListener("change", () => localStorage.setItem(id, input.checked));
+      input.addEventListener("change", () => {
+        localStorage.setItem(id, input.checked);
+      });
+
       const label = document.createElement("label");
       label.htmlFor = id;
       label.textContent = name;
+
       li.append(input, label);
       list.appendChild(li);
     });
+
     section.appendChild(list);
+  }
+
+  function renderSection(dataObject, sectionId) {
+    const section = document.getElementById(sectionId);
+    const toggleBtn = document.getElementById(`${sectionId}-toggle-all`);
+    let allSelected = false;
+
+    if (!section || !dataObject) return;
+
+    if (dataObject.main) {
+      createChecklist(sectionId, dataObject.main, sectionId);
+    }
+
+    if (dataObject.extras) {
+      Object.entries(dataObject.extras).forEach(([extraId, items]) => {
+        const extraSection = document.getElementById(extraId);
+        if (extraSection) {
+          const header = document.createElement("div");
+          header.className = "wave-header";
+
+          const heading = document.createElement("h2");
+          heading.textContent = extraId
+            .replace(sectionId + "-", '')
+            .replace(/[-_]/g, ' ')
+            .replace(/\b\w/g, c => c.toUpperCase());
+
+          const toggle = document.createElement("button");
+          toggle.id = `${extraId}-toggle-all`;
+          toggle.textContent = "Select All";
+
+          header.appendChild(heading);
+          header.appendChild(toggle);
+          extraSection.appendChild(header);
+
+          createChecklist(extraId, items, extraId);
+
+          let extraSelected = false;
+          toggle.addEventListener("click", () => {
+            extraSelected = !extraSelected;
+            toggle.textContent = extraSelected ? "Deselect All" : "Select All";
+            const checkboxes = extraSection.querySelectorAll("input[type='checkbox']");
+            checkboxes.forEach(cb => {
+              cb.checked = extraSelected;
+              localStorage.setItem(cb.id, extraSelected);
+            });
+          });
+        }
+      });
+    }
+
+    if (toggleBtn) {
+      toggleBtn.addEventListener("click", () => {
+        allSelected = !allSelected;
+        toggleBtn.textContent = allSelected ? "Deselect All" : "Select All";
+        const checkboxes = section.querySelectorAll("input[type='checkbox']");
+        checkboxes.forEach(cb => {
+          cb.checked = allSelected;
+          localStorage.setItem(cb.id, allSelected);
+        });
+      });
+    }
   }
 
   if (typeof waveData !== 'undefined') {
     Object.entries(waveData).forEach(([waveId, data]) => {
-      const section = document.getElementById(waveId);
-      const toggleBtn = document.getElementById(`${waveId}-toggle-all`);
-      let allSelected = false;
-
-      if (data.main) {
-        createChecklist(waveId, data.main, waveId);
-      }
-
-      if (data.extras) {
-        Object.entries(data.extras).forEach(([extraId, items]) => {
-          const heading = document.createElement("h2");
-          heading.textContent = extraId.replace(`${waveId}-`, '').replace(/[-_]/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
-          section.appendChild(heading);
-
-          const extraList = document.createElement("ul");
-          extraList.className = "wave-checklist";
-          items.forEach((name, index) => {
-            const id = `${extraId}-${index}`;
-            const li = document.createElement("li");
-            const input = document.createElement("input");
-            input.type = "checkbox";
-            input.id = id;
-            input.checked = localStorage.getItem(id) === "true";
-            input.addEventListener("change", () => localStorage.setItem(id, input.checked));
-            const label = document.createElement("label");
-            label.htmlFor = id;
-            label.textContent = name;
-            li.append(input, label);
-            extraList.appendChild(li);
-          });
-          section.appendChild(extraList);
-        });
-      }
-
-      if (toggleBtn) {
-        toggleBtn.addEventListener("click", () => {
-          allSelected = !allSelected;
-          toggleBtn.textContent = allSelected ? "Deselect All" : "Select All";
-          const checkboxes = section.querySelectorAll("input[type='checkbox']");
-          checkboxes.forEach(cb => {
-            cb.checked = allSelected;
-            localStorage.setItem(cb.id, allSelected);
-          });
-        });
-      }
+      renderSection(data, waveId);
     });
   }
 
   if (typeof bigDollData !== 'undefined') {
-    const sectionId = "big-pokedolls";
-    const section = document.getElementById(sectionId);
-    const toggleBtn = document.getElementById(`${sectionId}-toggle-all`);
-    let allSelected = false;
-
-    if (bigDollData.main && section) {
-      createChecklist(sectionId, bigDollData.main, sectionId);
-    }
-
-    if (toggleBtn) {
-      toggleBtn.addEventListener("click", () => {
-        allSelected = !allSelected;
-        toggleBtn.textContent = allSelected ? "Deselect All" : "Select All";
-        const checkboxes = section.querySelectorAll("input[type='checkbox']");
-        checkboxes.forEach(cb => {
-          cb.checked = allSelected;
-          localStorage.setItem(cb.id, allSelected);
-        });
-      });
-    }
+    renderSection(bigDollData, "big-pokedolls");
   }
 
   if (typeof pokepalDollData !== 'undefined') {
-    const sectionId = "pokepal-dolls";
-    const section = document.getElementById(sectionId);
-    const toggleBtn = document.getElementById(`${sectionId}-toggle-all`);
-    let allSelected = false;
-
-    if (pokepalDollData.main && section) {
-      createChecklist(sectionId, pokepalDollData.main, sectionId);
-    }
-
-    if (toggleBtn) {
-      toggleBtn.addEventListener("click", () => {
-        allSelected = !allSelected;
-        toggleBtn.textContent = allSelected ? "Deselect All" : "Select All";
-        const checkboxes = section.querySelectorAll("input[type='checkbox']");
-        checkboxes.forEach(cb => {
-          cb.checked = allSelected;
-          localStorage.setItem(cb.id, allSelected);
-        });
-      });
-    }
+    renderSection(pokepalDollData, "pokepal-dolls");
   }
 
   if (typeof wrapsData !== 'undefined') {
-    const sectionId = "wraps";
-    const section = document.getElementById(sectionId);
-    const toggleBtn = document.getElementById(`${sectionId}-toggle-all`);
-    let allSelected = false;
+    renderSection(wrapsData, "wraps");
+  }
 
-    if (wrapsData.main && section) {
-      createChecklist(sectionId, wrapsData.main, sectionId);
-    }
+  if (typeof creatorData !== 'undefined') {
+    renderSection(creatorData, "creators");
+  }
 
-    if (toggleBtn) {
-      toggleBtn.addEventListener("click", () => {
-        allSelected = !allSelected;
-        toggleBtn.textContent = allSelected ? "Deselect All" : "Select All";
-        const checkboxes = section.querySelectorAll("input[type='checkbox']");
-        checkboxes.forEach(cb => {
-          cb.checked = allSelected;
-          localStorage.setItem(cb.id, allSelected);
-        });
-      });
-    }
+  if (typeof vanillaPlushieData !== 'undefined') {
+    renderSection(vanillaPlushieData, "vanilla-plushies");
+  }
+
+  if (typeof vanillaFigures !== 'undefined') {
+    renderSection(vanillaFigures, "vanilla-figures");
+  }
+
+  if (typeof survivalPlushies !== 'undefined') {
+    renderSection(survivalPlushies, "survival-plushies");
   }
 });

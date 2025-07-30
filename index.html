@@ -1,64 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mythical Collection Tracker</title>
-  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/style.css" />
 </head>
+
 <body>
   <header>
-    <h1>Mythical Collection Tracker</h1>
-    <p>Keep track of your rare finds on the server.</p>
+    <h1>Mythical Collection Tracker</h1><br>
+    <p>Welcome! This is a barebones (and also still very much in progress) site that will let you keep track of your Mythical collectibles. Each major group of collectibles has its own page. The checklist states are stored in your browser, so unless you explicitly clear your browser data in settings, your checklists will (should) always remain as complete as you left them.</p><br>
+    <p>NOTE: For some of the lists, extraneous words like "plushie" or "figure" have been removed from the checklist items to save space and prevent redundancy. Everything should still be obvious as to which figure/plushie/doll you are checking.</p>
   </header>
 
   <main>
-  <div class="collection-grid">
-    <!-- Original tracker (keeps its IDs for now) -->
-    <section id="tracker" class="collection-box">
+    <div class="collection-grid">
+      <!-- Original tracker (keeps its IDs for now) -->
+      <section id="tracker" class="collection-box">
         <h2>Pokédolls</h2>
         <a href="pokedolls.html" class="collection-button">
           <p>Click to view</p>
         </a>
-    </section>
+      </section>
 
-    <section id="tracker" class="collection-box">
+      <section id="tracker" class="collection-box">
         <h2>Big Pokédolls</h2>
         <a href="big-pokedolls.html" class="collection-button">
           <p>Click to view</p>
         </a>
-    </section>
+      </section>
 
-    <section id="tracker" class="collection-box">
+      <section id="tracker" class="collection-box">
         <h2>Poképal Dolls</h2>
         <a href="pokepals.html" class="collection-button">
           <p>Click to view</p>
         </a>
-    </section>
+      </section>
 
-    <section id="tracker" class="collection-box">
+      <section id="tracker" class="collection-box">
         <h2>Wraps</h2>
         <a href="wraps.html" class="collection-button">
           <p>Click to view</p>
         </a>
-    </section>
+      </section>
 
-    <section id="tracker" class="collection-box">
-      <h2>Your Collection Progress</h2>
-      <ul id="collection-list">
-        <!-- dynamically populated -->
-      </ul>
-      <button id="add-item">Add Item</button>
-    </section>
-    <section id="tracker" class="collection-box">
-      <h2>Your Collection Progress</h2>
-      <ul id="collection-list">
-        <!-- dynamically populated -->
-      </ul>
-      <button id="add-item">Add Item</button>
-    </section>
-  </div>
-</main>
+      <section id="tracker" class="collection-box">
+        <h2>S1 Streamer Figures</h2>
+        <a href="s1-streamers.html" class="collection-button">
+          <p>Click to view</p>
+        </a>
+      </section>
+
+      <section id="tracker" class="collection-box">
+        <h2>S2 Streamer Figures</h2>
+        <a href="s2-streamers.html" class="collection-button">
+          <p>Click to view</p>
+        </a>
+      </section>
+
+      <section id="tracker" class="collection-box">
+        <h2>Vanilla Mob Plushies</h2>
+        <a href="vanilla-plushies.html" class="collection-button">
+          <p>Click to view</p>
+        </a>
+      </section>
+
+      <section id="tracker" class="collection-box">
+        <h2>Vanilla Mob Figures</h2>
+        <a href="vanilla-figures.html" class="collection-button">
+          <p>Click to view</p>
+        </a>
+      </section>
+
+      <section id="tracker" class="collection-box">
+        <h2>Custom Survival Plushies</h2>
+        <a href="survival-plushies.html" class="collection-button">
+          <p>Click to view</p>
+        </a>
+      </section>
+    </div>
+  </main>
 
 
   <footer>
@@ -67,4 +90,5 @@
 
   <script src="js/script.js"></script>
 </body>
+
 </html>
