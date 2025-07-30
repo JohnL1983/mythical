@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const section = document.getElementById(containerId);
     const list = document.createElement("ul");
     list.className = "wave-checklist";
+    list.id = `${prefix}-list`;
 
     items.forEach((name, index) => {
       const id = `${prefix}-${index}`;
@@ -13,6 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
       input.checked = localStorage.getItem(id) === "true";
       input.addEventListener("change", () => {
         localStorage.setItem(id, input.checked);
+        updateChecklistCounter(prefix);
       });
 
       const label = document.createElement("label");
@@ -26,6 +28,32 @@ document.addEventListener("DOMContentLoaded", () => {
     section.appendChild(list);
   }
 
+  function createCounter(containerId) {
+    const toggleBtn = document.getElementById(`${containerId}-toggle-all`);
+    if (!toggleBtn) return;
+
+    const counter = document.createElement("div");
+    counter.className = "checklist-counter";
+    counter.id = `${containerId}-counter`;
+    counter.textContent = "0/0 - 0%";
+
+    toggleBtn.insertAdjacentElement("afterend", counter);
+  }
+
+  function updateChecklistCounter(containerId) {
+    const list = document.getElementById(`${containerId}-list`);
+    const counter = document.getElementById(`${containerId}-counter`);
+    if (!list || !counter) return;
+
+    const checkboxes = list.querySelectorAll("input[type='checkbox']");
+    const checked = list.querySelectorAll("input[type='checkbox']:checked");
+    const total = checkboxes.length;
+    const count = checked.length;
+    const percent = total > 0 ? Math.round((count / total) * 100) : 0;
+
+    counter.textContent = `${count}/${total} - ${percent}%`;
+  }
+
   function renderSection(dataObject, sectionId) {
     const section = document.getElementById(sectionId);
     const toggleBtn = document.getElementById(`${sectionId}-toggle-all`);
@@ -35,6 +63,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (dataObject.main) {
       createChecklist(sectionId, dataObject.main, sectionId);
+      createCounter(sectionId);
+      updateChecklistCounter(sectionId);
     }
 
     if (dataObject.extras) {
@@ -59,6 +89,8 @@ document.addEventListener("DOMContentLoaded", () => {
           extraSection.appendChild(header);
 
           createChecklist(extraId, items, extraId);
+          createCounter(extraId);
+          updateChecklistCounter(extraId);
 
           let extraSelected = false;
           toggle.addEventListener("click", () => {
@@ -69,6 +101,8 @@ document.addEventListener("DOMContentLoaded", () => {
               cb.checked = extraSelected;
               localStorage.setItem(cb.id, extraSelected);
             });
+
+            updateChecklistCounter(extraId);
           });
         }
       });
@@ -83,10 +117,13 @@ document.addEventListener("DOMContentLoaded", () => {
           cb.checked = allSelected;
           localStorage.setItem(cb.id, allSelected);
         });
+
+        updateChecklistCounter(sectionId);
       });
     }
   }
 
+  // Data sections
   if (typeof waveData !== 'undefined') {
     Object.entries(waveData).forEach(([waveId, data]) => {
       renderSection(data, waveId);
@@ -111,7 +148,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (typeof s2StreamerData !== 'undefined') {
     renderSection(s2StreamerData, "s2streamers");
-  }  
+  }
 
   if (typeof vanillaPlushieData !== 'undefined') {
     renderSection(vanillaPlushieData, "vanilla-plushies");

@@ -11,8 +11,13 @@
 <body>
   <header>
     <h1>Mythical Collection Tracker</h1><br>
-    <p>Welcome! This is a barebones (and also still very much in progress) site that will let you keep track of your Mythical collectibles. Each major group of collectibles has its own page. The checklist states are stored in your browser, so unless you explicitly clear your browser data in settings, your checklists will (should) always remain as complete as you left them.</p><br>
-    <p>NOTE: For some of the lists, extraneous words like "plushie" or "figure" have been removed from the checklist items to save space and prevent redundancy. Everything should still be obvious as to which figure/plushie/doll you are checking.</p>
+    <p>Welcome! This is a barebones (and also still very much in progress) site that will let you keep track of your
+      Mythical collectibles. Each major group of collectibles has its own page. The checklist states are stored in your
+      browser, so unless you explicitly clear your browser data in settings, your checklists will (should) always remain
+      as complete as you left them.</p><br>
+    <p>NOTE: For some of the lists, extraneous words like "plushie" or "figure" have been removed from the checklist
+      items to save space and prevent redundancy. Everything should still be obvious as to which figure/plushie/doll you
+      are checking.</p>
   </header>
 
   <main>
@@ -89,6 +94,74 @@
   </footer>
 
   <script src="js/script.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const sectionConfigs = {
+        "Pokédolls": [
+          "wave-1-", "wave-2-", "wave-3-", "wave-4-", "wave-5-",
+          "wave-6-", "wave-7-", "wave-8-", "wave-9-", "wave-10-",
+          "wave-11-", "wave-12-", "wave-13-", "wave-14-", "wave-15-",
+          "wave-16-", "wave-17-", "wave-1-W1-gilded-", "wave-3-W3-halloween-"
+        ],
+        "Big Pokédolls": ["big-pokedolls-"],
+        "Vanilla Mob Plushies": ["vanilla-plushies-"],
+        "Poképal Dolls": ["pokepal-dolls-"],
+        "Wraps": ["wraps-"],
+        "S1 Streamer Figures": ["s1streamers-"],
+        "S2 Streamer Figures": ["s2streamers-"],
+        "Vanilla Mob Figures": ["vanilla-figures-"],
+        "Custom Survival Plushies": ["survival-plushies-"]
+      };
+
+      function countLocalStorageMatches(prefixes) {
+        let total = 0;
+        let checked = 0;
+
+        for (let i = 0; i < localStorage.length; i++) {
+          const key = localStorage.key(i);
+          if (prefixes.some(prefix => key.startsWith(prefix))) {
+            total++;
+            if (localStorage.getItem(key) === "true") {
+              checked++;
+            }
+          }
+        }
+
+        const percent = total > 0 ? (checked / total) * 100 : 0;
+        return { total, checked, percent };
+      }
+
+      document.querySelectorAll("section.collection-box").forEach(section => {
+        const title = section.querySelector("h2")?.textContent;
+        const prefixes = sectionConfigs[title];
+        if (!prefixes) return;
+
+        const { total, checked, percent } = countLocalStorageMatches(prefixes);
+
+        // Create summary counter
+        const summary = document.createElement("p");
+        summary.className = "section-summary";
+        summary.textContent = `${checked}/${total}`;
+
+        // Create progress bar container
+        const barContainer = document.createElement("div");
+        barContainer.className = "progress-container";
+
+        // Create bar fill
+        const barFill = document.createElement("div");
+        barFill.className = "progress-fill";
+        barFill.style.width = `${percent}%`;
+
+        barContainer.appendChild(barFill);
+
+        const button = section.querySelector(".collection-button");
+        section.insertBefore(summary, button);
+        section.insertBefore(barContainer, button);
+      });
+    });
+  </script>
+
+
 </body>
 
 </html>

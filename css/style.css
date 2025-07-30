@@ -137,85 +137,115 @@ button {
 
 /* Wave checklist layout */
 .waves-container {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .wave-container {
-    display: flex;
-    align-items: flex-start;
-    gap: 2rem;
-    padding: 1rem;
-    border: 3px solid #333;
-    border-radius: 8px;
-    background: #BE44F2;
-    background: linear-gradient(180deg, rgba(190, 68, 242, 1) 0%, rgba(190, 68, 242, 0.36) 100%);
+  display: flex;
+  align-items: flex-start;
+  gap: 2rem;
+  padding: 1rem;
+  border: 3px solid #333;
+  border-radius: 8px;
+  background: #BE44F2;
+  background: linear-gradient(180deg, rgba(190, 68, 242, 1) 0%, rgba(190, 68, 242, 0.36) 100%);
 }
 
 .wave-container h2 {
-    color: #fff;
-    font-size: 34px;
+  color: #fff;
+  font-size: 34px;
 }
 
 .wave-header {
-    flex-shrink: 0;
-    width: 140px;
+  flex-shrink: 0;
+  width: 185px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 10px;
 }
 
 .wave-header h2 {
-    margin: 0 0 0.5rem;
-    color: #fff;
-    font-size: 34px;
-
+  margin: 0 0 0.5rem;
+  color: #fff;
+  font-size: 30px;
 }
 
 .wave-header button {
-    padding: 0.3rem 0.6rem;
-    font-size: 1rem;
-    background-color: #fba91c;
-    border: 1px solid #fba91c;
-    border-radius: 4px;
-    cursor: pointer;
-    color: #636363
+  padding: 0.3rem 0.6rem;
+  font-size: 1rem;
+  background-color: #fba91c;
+  border: 1px solid #fba91c;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #636363
 }
 
 .wave-header button:hover {
-    padding: 0.5rem 0.8rem;
-    font-size: 1rem;
-    background-color: #fba91c;
-    border: 1px solid #fba91c;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: transform 0.3s ease-in-out;
+  padding: 0.5rem 0.8rem;
+  font-size: 1rem;
+  background-color: #fba91c;
+  border: 1px solid #fba91c;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+}
+
+.checklist-counter {
+  color: #fff;
+  font-size: 30px;
 }
 
 .wave-checklist {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    columns: 4;
-    column-gap: 1rem;
-    flex: 1;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  columns: 4;
+  column-gap: 1rem;
+  flex: 1;
 }
 
 .wave-checklist li {
-    break-inside: avoid;
-    margin-bottom: 0.5rem;
-    color: #fff;
+  break-inside: avoid;
+  margin-bottom: 0.5rem;
+  color: #fff;
 }
 
 label {
-    margin-left: 5px;
-    font-size: 18px;
+  margin-left: 5px;
+  font-size: 18px;
 }
 
 input[type="checkbox"]:checked+label {
-    background: green;
-    padding: 5px;
-    border-radius: 10px;
+  background: green;
+  padding: 5px;
+  border-radius: 10px;
 }
 
 #big-pokedolls {
-    height: 190px;
+  height: 190px;
+}
+
+.section-summary {
+  font-weight: bold;
+  margin-bottom: 0.3em;
+}
+
+.progress-container {
+  width: 100%;
+  height: 8px;
+  background-color: #ddd;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 1em;
+}
+
+.progress-fill {
+  height: 100%;
+  background-color: #4caf50;
+  /* green */
+  transition: width 0.3s ease-in-out;
 }
