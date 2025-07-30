@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function renderSection(dataObject, sectionId) {
     const section = document.getElementById(sectionId);
     const toggleBtn = document.getElementById(`${sectionId}-toggle-all`);
-    let allSelected = false;
+    let allSelected = localStorage.getItem(`${sectionId}-toggle`) === "true";
 
     if (!section || !dataObject) return;
 
@@ -82,7 +82,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
           const toggle = document.createElement("button");
           toggle.id = `${extraId}-toggle-all`;
-          toggle.textContent = "Select All";
+          let extraSelected = localStorage.getItem(`${extraId}-toggle`) === "true";
+          toggle.textContent = extraSelected ? "Deselect All" : "Select All";
 
           header.appendChild(heading);
           header.appendChild(toggle);
@@ -92,10 +93,10 @@ document.addEventListener("DOMContentLoaded", () => {
           createCounter(extraId);
           updateChecklistCounter(extraId);
 
-          let extraSelected = false;
           toggle.addEventListener("click", () => {
             extraSelected = !extraSelected;
             toggle.textContent = extraSelected ? "Deselect All" : "Select All";
+            localStorage.setItem(`${extraId}-toggle`, extraSelected);
             const checkboxes = extraSection.querySelectorAll("input[type='checkbox']");
             checkboxes.forEach(cb => {
               cb.checked = extraSelected;
@@ -109,9 +110,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     if (toggleBtn) {
+      toggleBtn.textContent = allSelected ? "Deselect All" : "Select All";
+
       toggleBtn.addEventListener("click", () => {
         allSelected = !allSelected;
         toggleBtn.textContent = allSelected ? "Deselect All" : "Select All";
+        localStorage.setItem(`${sectionId}-toggle`, allSelected);
+
         const checkboxes = section.querySelectorAll("input[type='checkbox']");
         checkboxes.forEach(cb => {
           cb.checked = allSelected;
@@ -160,5 +165,44 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (typeof survivalPlushies !== 'undefined') {
     renderSection(survivalPlushies, "survival-plushies");
+  }
+
+  // ✅ Global reusable clear modal logic
+  const clearButton = document.getElementById("clear-checklist");
+  const overlay = document.getElementById("clear-confirm-overlay");
+
+  if (clearButton && overlay) {
+    const cancelBtn = document.getElementById("cancel-clear");
+    const confirmBtn = document.getElementById("confirm-clear");
+
+    clearButton.addEventListener("click", () => {
+      overlay.style.display = "flex";
+    });
+
+    cancelBtn?.addEventListener("click", () => {
+      overlay.style.display = "none";
+    });
+
+    confirmBtn?.addEventListener("click", () => {
+      const checkboxes = document.querySelectorAll("input[type='checkbox']");
+      checkboxes.forEach(cb => {
+        cb.checked = false;
+        localStorage.setItem(cb.id, false);
+      });
+
+      const toggleButtons = document.querySelectorAll("button[id$='-toggle-all']");
+      toggleButtons.forEach(btn => {
+        const sectionId = btn.id.replace("-toggle-all", "");
+        localStorage.setItem(`${sectionId}-toggle`, false);
+        btn.textContent = "Select All";
+      });
+
+      document.querySelectorAll("ul.wave-checklist").forEach(list => {
+        const listId = list.id.replace("-list", "");
+        updateChecklistCounter(listId);
+      });
+
+      overlay.style.display = "none";
+    });
   }
 });

@@ -184,16 +184,6 @@ button {
   color: #636363
 }
 
-.wave-header button:hover {
-  padding: 0.5rem 0.8rem;
-  font-size: 1rem;
-  background-color: #fba91c;
-  border: 1px solid #fba91c;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: transform 0.3s ease-in-out;
-}
-
 .checklist-counter {
   color: #fff;
   font-size: 30px;
@@ -248,4 +238,31 @@ input[type="checkbox"]:checked+label {
   background-color: #4caf50;
   /* green */
   transition: width 0.3s ease-in-out;
+}
+
+#clear-confirm-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.clear-confirm-box {
+  background: white;
+  padding: 2em;
+  border-radius: 8px;
+  text-align: center;
+  width: 300px;
+}
+
+.clear-buttons {
+  margin-top: 1em;
+  display: flex;
+  justify-content: space-around;
 }
