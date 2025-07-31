@@ -219,6 +219,10 @@ document.addEventListener("DOMContentLoaded", () => {
     renderSection(springPlushieData, "spring-plushies");
   }
 
+  if (typeof starwarsPlushiesData !== 'undefined') {
+    renderSection(starwarsPlushiesData, "starwars-plushies");
+  }
+
   // ✅ Global reusable clear modal logic
   const clearButton = document.getElementById("clear-checklist");
   const overlay = document.getElementById("clear-confirm-overlay");
