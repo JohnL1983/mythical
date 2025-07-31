@@ -203,6 +203,22 @@ document.addEventListener("DOMContentLoaded", () => {
     renderSection(indyPlushies, "indy-plushies");
   }
 
+  if (typeof easterPlushieData !== 'undefined') {
+    renderSection(easterPlushieData, "easter-plushies");
+  }
+
+  if (typeof insideOutData !== 'undefined') {
+    renderSection(insideOutData, "inside-out-plushies");
+  }
+
+  if (typeof pridePlushieData !== 'undefined') {
+    renderSection(pridePlushieData, "pride-plushies");
+  }
+
+  if (typeof springPlushieData !== 'undefined') {
+    renderSection(springPlushieData, "spring-plushies");
+  }
+
   // ✅ Global reusable clear modal logic
   const clearButton = document.getElementById("clear-checklist");
   const overlay = document.getElementById("clear-confirm-overlay");
