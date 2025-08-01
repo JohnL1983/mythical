@@ -3,10 +3,10 @@ function createPokeballDiv(label, index, randomized = false) {
   div.className = 'pokeball';
   div.dataset.index = index;
 
-  // Apply randomized animation delay (max 5s)
+  // Apply randomized animation delay if restoring on page load
   if (randomized) {
-    const delay = (Math.random() * 5).toFixed(2); // 0.00–5.00s
-    div.style.animationDelay = `${delay}s, ${delay}s, ${delay}s`; // fall, shake, catch
+    const delay = (Math.random() * 5).toFixed(2);
+    div.style.animationDelay = `${delay}s, ${delay}s, ${delay}s`;
 
     const starDelay = (parseFloat(delay) + 3.75).toFixed(2);
     const star1 = document.createElement('div');
@@ -20,7 +20,6 @@ function createPokeballDiv(label, index, randomized = false) {
     div.appendChild(star1);
     div.appendChild(star2);
   } else {
-    // Normal insert on checkbox change
     const star1 = document.createElement('div');
     star1.className = 'star star1';
 
@@ -31,20 +30,37 @@ function createPokeballDiv(label, index, randomized = false) {
     div.appendChild(star2);
   }
 
-  div.addEventListener('click', () => {
+  function swapBackToCheckbox() {
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
     checkbox.className = 'toggle-pokeball';
     checkbox.dataset.index = index;
     checkbox.id = index;
+
     label.insertBefore(checkbox, div);
     label.removeChild(div);
     localStorage.setItem(index, 'false');
     attachPokeballListener(checkbox);
-  });
+  }
+
+  // Pokéball click restores checkbox
+  div.addEventListener('click', swapBackToCheckbox);
+
+  // Also make associated <label for="..."> do the same
+  const associatedLabel = document.querySelector(`label[for="${index}"]`);
+  if (associatedLabel) {
+    associatedLabel.addEventListener('click', (e) => {
+      // Only trigger if checkbox is gone (i.e. Pokéball is visible)
+      if (!document.getElementById(index)) {
+        e.preventDefault();
+        swapBackToCheckbox();
+      }
+    });
+  }
 
   return div;
 }
+
 
 function attachPokeballListener(checkbox) {
   checkbox.addEventListener('change', function () {
@@ -74,4 +90,5 @@ document.addEventListener('DOMContentLoaded', () => {
       attachPokeballListener(cb);
     }
   });
+  
 });
