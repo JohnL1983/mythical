@@ -1,0 +1,30 @@
+const xmasPlushieData = {
+  main: [
+    "Xmas Angel",
+    "Xmas Armoured Baymax",
+    "Xmas Baymax",
+    "Xmas Buzz Lightyear",
+    "Xmas Duchess",
+    "Xmas Eve",
+    "Xmas Goofy",
+    "Xmas Jack Skellington",
+    "Xmas Lady",
+    "Xmas Lightning Mcqueen",
+    "Xmas Light Fury",
+    "Xmas Mater",
+    "Xmas Mike Wazowski",
+    "Xmas Olaf",
+    "Xmas Oogie Boogie",
+    "Xmas Pluto",
+    "Xmas Pumba",
+    "Xmas Stitch",
+    "Xmas Sully",
+    "Xmas Sven",
+    "Xmas Thmoas Omalley",
+    "Xmas Timon",
+    "Xmas Toothless",
+    "Xmas Tramp",
+    "Xmas Walle",
+    "Xmas Woody"
+  ]
+};

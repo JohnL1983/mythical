@@ -223,6 +223,42 @@ document.addEventListener("DOMContentLoaded", () => {
     renderSection(starwarsPlushiesData, "starwars-plushies");
   }
 
+  if (typeof stPatricksData !== 'undefined') {
+    renderSection(stPatricksData, "stpatricks-plushies");
+  }
+
+  if (typeof summerVibesData !== 'undefined') {
+    renderSection(summerVibesData, "summer-vibes");
+  }
+
+  if (typeof superMarioData !== 'undefined') {
+    renderSection(superMarioData, "supermario-plushies");
+  }
+
+  if (typeof superheroData !== 'undefined') {
+    renderSection(superheroData, "superhero-plushies");
+  }
+
+  if (typeof tmntPlushieData !== 'undefined') {
+    renderSection(tmntPlushieData, "tmnt-plushies");
+  }
+
+  if (typeof valentinesPlushieData !== 'undefined') {
+    renderSection(valentinesPlushieData, "valentines-plushies");
+  }
+
+  if (typeof xmenPlushieData !== 'undefined') {
+    renderSection(xmenPlushieData, "xmen-plushies");
+  }
+
+  if (typeof xmasPlushieData !== 'undefined') {
+    renderSection(xmasPlushieData, "xmas-plushies");
+  }
+
+  if (typeof yugiohPlushieData !== 'undefined') {
+    renderSection(yugiohPlushieData, "yugioh-plushies");
+  }
+
   // ✅ Global reusable clear modal logic
   const clearButton = document.getElementById("clear-checklist");
   const overlay = document.getElementById("clear-confirm-overlay");

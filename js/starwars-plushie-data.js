@@ -24,7 +24,7 @@ const starwarsPlushiesData = {
         "PP-8"
     ],
     extras: {
-        "2025-starwars-plushies-plushies": [
+        "2025-starwars-plushies": [
             "MEGA General Griefer",
             "Admiral Bacne",
             "Bad Pain",

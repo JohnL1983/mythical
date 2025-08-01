@@ -266,3 +266,26 @@ input[type="checkbox"]:checked+label {
   display: flex;
   justify-content: space-around;
 }
+
+/* .pokeball {
+  position: relative; 
+  width: 150px;
+  height: 150px;
+  border: 5px solid black; 
+  border-radius: 50%;
+  overflow: hidden;
+  background: linear-gradient(to bottom, red 50%, white 50%);
+}
+
+.center-button {
+  position: absolute; 
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px; 
+  height: 40px;
+  background-color: white; 
+  border: 5px solid black; 
+  border-radius: 50%; 
+  box-shadow: inset 0 0 0 5px gray; 
+}  */
