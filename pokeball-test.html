@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Wave 2 Checklist</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <a href="index.html" class="home-link">← Home</a>
+    <h1>Wave 2</h1>
+  </header>
+
+  <main>
+    <ul class="wave-checklist">
+      <li><label><input type="checkbox" class="toggle-pokeball" data-index="0" />Celebi</label></li>
+      <li><label><input type="checkbox" class="toggle-pokeball" data-index="1" />Jirachi</label></li>
+      <li><label><input type="checkbox" class="toggle-pokeball" data-index="2" />Manaphy</label></li>
+      <li><label><input type="checkbox" class="toggle-pokeball" data-index="3" />Mew</label></li>
+      <li><label><input type="checkbox" class="toggle-pokeball" data-index="4" />Shaymin</label></li>
+      <li><label><input type="checkbox" class="toggle-pokeball" data-index="5" />Victini</label></li>
+    </ul>
+  </main>
+
+  <footer>
+    <p>© 2025 Mythical Collection</p>
+  </footer>
+
+  <script>
+    const STORAGE_PREFIX = 'wave2-';
+
+    function createPokeballDiv(label, index) {
+      const div = document.createElement('div');
+      div.className = 'pokeball';
+      div.dataset.index = index;
+
+      // Add two stars
+      const star1 = document.createElement('div');
+      star1.className = 'star star1';
+      const star2 = document.createElement('div');
+      star2.className = 'star star2';
+      div.appendChild(star1);
+      div.appendChild(star2);
+
+      div.addEventListener('click', () => {
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.className = 'toggle-pokeball';
+        checkbox.dataset.index = index;
+        label.insertBefore(checkbox, div);
+        label.removeChild(div);
+        localStorage.setItem(STORAGE_PREFIX + index, 'false');
+        attachToggleListener(checkbox);
+      });
+
+      return div;
+    }
+
+    function attachToggleListener(checkbox) {
+      checkbox.addEventListener('change', function () {
+        const index = this.dataset.index;
+        if (this.checked) {
+          const pokeballDiv = createPokeballDiv(this.parentNode, index);
+          this.parentNode.insertBefore(pokeballDiv, this);
+          this.parentNode.removeChild(this);
+          localStorage.setItem(STORAGE_PREFIX + index, 'true');
+        } else {
+          localStorage.setItem(STORAGE_PREFIX + index, 'false');
+        }
+      });
+    }
+
+    // Restore saved state
+    document.querySelectorAll('.toggle-pokeball').forEach(checkbox => {
+      const index = checkbox.dataset.index;
+      const isChecked = localStorage.getItem(STORAGE_PREFIX + index) === 'true';
+
+      if (isChecked) {
+        const label = checkbox.parentNode;
+        const pokeballDiv = createPokeballDiv(label, index);
+        label.insertBefore(pokeballDiv, checkbox);
+        label.removeChild(checkbox);
+      } else {
+        attachToggleListener(checkbox);
+      }
+    });
+  </script>
+
+  <style>
+    .pokeball {
+      position: relative;
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      background: radial-gradient(
+          white 1.6px,
+          black 1.7px 1.8px,
+          white 1.9px 2.4px,
+          black 2.5px 3.2px,
+          transparent 3.3px
+        ),
+        linear-gradient(to bottom, red 0 8px, black 8.1px 9.6px, white 9.7px 10px);
+      border-radius: 50%;
+      border: 1px solid black;
+      box-shadow: inset -1.6px -0.8px 0 0 rgba(0, 0, 0, 0.2);
+      animation:
+        fall 0.5s ease-in-out,
+        shake 1.25s cubic-bezier(0.36, 0.07, 0.19, 0.97) 3,
+        catch 0.5s ease-out forwards;
+      vertical-align: middle;
+      margin-right: 6px;
+      overflow: visible;
+    }
+
+    @keyframes shake {
+      0%   { transform: translateX(0) rotate(0); }
+      20%  { transform: translateX(-2px) rotate(-20deg); }
+      30%  { transform: translateX(2px) rotate(20deg); }
+      50%  { transform: translateX(-2px) rotate(-10deg); }
+      60%  { transform: translateX(2px) rotate(10deg); }
+      100% { transform: translateX(0) rotate(0); }
+    }
+
+    @keyframes fall {
+      0%   { transform: translateY(-200%); }
+      60%  { transform: translateY(0); }
+      80%  { transform: translateY(-10%); }
+      100% { transform: translateY(0); }
+    }
+
+    @keyframes catch {
+      to {
+        filter: saturate(0.8) brightness(0.8);
+      }
+    }
+
+    .star {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: yellow;
+      clip-path: polygon(
+        50% 0%,
+        61% 35%,
+        98% 35%,
+        68% 57%,
+        79% 91%,
+        50% 70%,
+        21% 91%,
+        32% 57%,
+        2% 35%,
+        39% 35%
+      );
+      opacity: 0;
+      animation: star-pop 1s ease-out forwards;
+      animation-delay: 3.75s; /* after 3 shakes (1.25s * 3) */
+    }
+
+    .star1 {
+      top: -8px;
+      left: -6px;
+    }
+
+    .star2 {
+      top: -8px;
+      right: -6px;
+    }
+
+    @keyframes star-pop {
+      0% {
+        transform: scale(0.5) translateY(0);
+        opacity: 0;
+      }
+      50% {
+        transform: scale(1.2) translateY(-4px);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(1) translateY(-8px);
+        opacity: 0;
+      }
+    }
+  </style>
+</body>
+</html>

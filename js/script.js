@@ -8,14 +8,13 @@ document.addEventListener("DOMContentLoaded", () => {
     items.forEach((name, index) => {
       const id = `${prefix}-${index}`;
       const li = document.createElement("li");
+
       const input = document.createElement("input");
       input.type = "checkbox";
       input.id = id;
+      input.dataset.index = id;
+      input.className = "toggle-pokeball";
       input.checked = localStorage.getItem(id) === "true";
-      input.addEventListener("change", () => {
-        localStorage.setItem(id, input.checked);
-        updateChecklistCounter(prefix);
-      });
 
       const label = document.createElement("label");
       label.htmlFor = id;
@@ -45,12 +44,20 @@ document.addEventListener("DOMContentLoaded", () => {
     const counter = document.getElementById(`${containerId}-counter`);
     if (!list || !counter) return;
 
-    const checkboxes = list.querySelectorAll("input[type='checkbox']");
-    const checked = list.querySelectorAll("input[type='checkbox']:checked");
-    const total = checkboxes.length;
-    const count = checked.length;
-    const percent = total > 0 ? Math.round((count / total) * 100) : 0;
+    const listItems = list.querySelectorAll("li");
+    let total = listItems.length;
+    let count = 0;
 
+    listItems.forEach(li => {
+      const checkbox = li.querySelector("input[type='checkbox']");
+      const isChecked = checkbox
+        ? checkbox.checked
+        : localStorage.getItem(li.querySelector("label")?.htmlFor) === "true";
+
+      if (isChecked) count++;
+    });
+
+    const percent = total > 0 ? Math.round((count / total) * 100) : 0;
     counter.textContent = `${count}/${total} - ${percent}%`;
   }
 
@@ -120,15 +127,16 @@ document.addEventListener("DOMContentLoaded", () => {
         const checkboxes = section.querySelectorAll("input[type='checkbox']");
         checkboxes.forEach(cb => {
           cb.checked = allSelected;
-          localStorage.setItem(cb.id, allSelected);
+          cb.dispatchEvent(new Event("change"));
         });
+
 
         updateChecklistCounter(sectionId);
       });
     }
   }
 
-  // Data sections
+  // Data rendering
   if (typeof waveData !== 'undefined') {
     Object.entries(waveData).forEach(([waveId, data]) => {
       renderSection(data, waveId);
@@ -259,7 +267,7 @@ document.addEventListener("DOMContentLoaded", () => {
     renderSection(yugiohPlushieData, "yugioh-plushies");
   }
 
-  // ✅ Global reusable clear modal logic
+  // CLEAR LOGIC — revised to handle Pokéballs too
   const clearButton = document.getElementById("clear-checklist");
   const overlay = document.getElementById("clear-confirm-overlay");
 
@@ -276,10 +284,26 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     confirmBtn?.addEventListener("click", () => {
-      const checkboxes = document.querySelectorAll("input[type='checkbox']");
-      checkboxes.forEach(cb => {
-        cb.checked = false;
-        localStorage.setItem(cb.id, false);
+      const allListItems = document.querySelectorAll("ul.wave-checklist li");
+
+      allListItems.forEach(li => {
+        const index = li.querySelector("input")?.id || li.querySelector("label")?.htmlFor;
+        localStorage.setItem(index, false);
+
+        // Restore checkbox if replaced
+        const pokeball = li.querySelector(".pokeball");
+        if (pokeball) {
+          const checkbox = document.createElement("input");
+          checkbox.type = "checkbox";
+          checkbox.className = "toggle-pokeball";
+          checkbox.dataset.index = index;
+          checkbox.id = index;
+          li.insertBefore(checkbox, pokeball);
+          li.removeChild(pokeball);
+        }
+
+        const cb = li.querySelector("input[type='checkbox']");
+        if (cb) cb.checked = false;
       });
 
       const toggleButtons = document.querySelectorAll("button[id$='-toggle-all']");

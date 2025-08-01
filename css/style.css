@@ -267,25 +267,96 @@ input[type="checkbox"]:checked+label {
   justify-content: space-around;
 }
 
-/* .pokeball {
-  position: relative; 
-  width: 150px;
-  height: 150px;
-  border: 5px solid black; 
+.pokeball {
+  position: relative;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background: radial-gradient(
+      white 1.6px,
+      black 1.7px 1.8px,
+      white 1.9px 2.4px,
+      black 2.5px 3.2px,
+      transparent 3.3px
+    ),
+    linear-gradient(to bottom, red 0 8px, black 8.1px 9.6px, white 9.7px 10px);
   border-radius: 50%;
-  overflow: hidden;
-  background: linear-gradient(to bottom, red 50%, white 50%);
+  border: 1px solid black;
+  box-shadow: inset -1.6px -0.8px 0 0 rgba(0, 0, 0, 0.2);
+  animation:
+    fall 0.5s ease-in-out,
+    shake 1.25s cubic-bezier(0.36, 0.07, 0.19, 0.97) 3,
+    catch 0.5s ease-out forwards;
+  vertical-align: middle;
+  margin-right: 6px;
+  overflow: visible;
 }
 
-.center-button {
-  position: absolute; 
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 40px; 
-  height: 40px;
-  background-color: white; 
-  border: 5px solid black; 
-  border-radius: 50%; 
-  box-shadow: inset 0 0 0 5px gray; 
-}  */
+@keyframes shake {
+  0% { transform: translateX(0) rotate(0); }
+  20% { transform: translateX(-2px) rotate(-20deg); }
+  30% { transform: translateX(2px) rotate(20deg); }
+  50% { transform: translateX(-2px) rotate(-10deg); }
+  60% { transform: translateX(2px) rotate(10deg); }
+  100% { transform: translateX(0) rotate(0); }
+}
+
+@keyframes fall {
+  0% { transform: translateY(-200%); }
+  60% { transform: translateY(0); }
+  80% { transform: translateY(-10%); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes catch {
+  to {
+    filter: saturate(0.8) brightness(0.8);
+  }
+}
+
+.star {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: yellow;
+  clip-path: polygon(
+    50% 0%,
+    61% 35%,
+    98% 35%,
+    68% 57%,
+    79% 91%,
+    50% 70%,
+    21% 91%,
+    32% 57%,
+    2% 35%,
+    39% 35%
+  );
+  opacity: 0;
+  animation: star-pop 1s ease-out forwards;
+  animation-delay: 3.75s;
+}
+
+.star1 {
+  top: -8px;
+  left: -6px;
+}
+
+.star2 {
+  top: -8px;
+  right: -6px;
+}
+
+@keyframes star-pop {
+  0% {
+    transform: scale(0.5) translateY(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2) translateY(-4px);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) translateY(-8px);
+    opacity: 0;
+  }
+}
